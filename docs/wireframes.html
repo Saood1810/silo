@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Silo — wireframes (dark mood)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#0A0D12;
+    --bg-1:#12161D;
+    --bg-2:#181D26;
+    --glass:#C9D6E3;
+    --ink:#E8E6DE;
+    --ink-soft:#8B93A1;
+    --ink-faint:#5B6270;
+    --accent:#A9748A;
+    --accent-soft:#C79DAF;
+    --line: rgba(201,214,227,0.09);
+    --line-strong: rgba(201,214,227,0.16);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:#05070A;
+    font-family:'Inter', sans-serif;
+    color:var(--ink);
+    padding:36px 16px 72px;
+  }
+  .serif{font-family:'Cormorant Garamond', serif;}
+  .frame-label{
+    text-align:center;
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--accent-soft);
+    margin:44px 0 12px;
+  }
+  .device{
+    max-width:1000px;
+    margin:0 auto;
+    background:var(--bg-0);
+    border:1px solid var(--line-strong);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 40px 80px -30px rgba(0,0,0,0.8);
+  }
+  .rain-texture{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+      repeating-linear-gradient(100deg,
+        rgba(201,214,227,0.05) 0px,
+        rgba(201,214,227,0.05) 1px,
+        transparent 1px,
+        transparent 38px),
+      repeating-linear-gradient(96deg,
+        rgba(201,214,227,0.03) 0px,
+        rgba(201,214,227,0.03) 1px,
+        transparent 1px,
+        transparent 61px);
+    opacity:.7;
+  }
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 22px;
+    border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand-mark{
+    width:20px;height:20px;border-radius:50%;
+    background:radial-gradient(circle at 32% 28%, var(--accent-soft), var(--accent) 75%);
+    box-shadow:0 0 14px rgba(169,116,138,0.5);
+  }
+  .brand-name{font-size:17px;letter-spacing:.02em;font-weight:500;}
+  .tabs{display:flex;gap:2px;background:var(--bg-1);padding:3px;border-radius:8px;border:1px solid var(--line);}
+  .tab-btn{
+    border:none;background:transparent;color:var(--ink-faint);
+    font-family:'Inter',sans-serif;font-size:12px;
+    padding:6px 13px;border-radius:6px;cursor:pointer;
+  }
+  .tab-btn.active{background:var(--bg-2);color:var(--ink);}
+  .layout{display:grid;grid-template-columns:230px 1fr 280px;min-height:540px;}
+  .layout.no-quotes{grid-template-columns:230px 1fr;}
+  .layout.mobile{grid-template-columns:1fr;min-height:auto;}
+  .col-list{background:var(--bg-0);border-right:1px solid var(--line);padding:18px 14px;}
+  .search{
+    width:100%;background:var(--bg-1);border:1px solid var(--line);border-radius:8px;
+    padding:9px 11px;color:var(--ink);font-size:12.5px;margin-bottom:14px;
+  }
+  .search::placeholder{color:var(--ink-faint);}
+  .entry-item{padding:11px 11px;border-radius:8px;margin-bottom:3px;cursor:pointer;border:1px solid transparent;}
+  .entry-item.active{background:var(--bg-1);border-color:var(--line-strong);}
+  .entry-item .d{font-size:10.5px;color:var(--accent-soft);letter-spacing:.04em;}
+  .entry-item .t{font-size:13.5px;margin-top:3px;color:var(--ink);}
+  .entry-item .p{font-size:11.5px;color:var(--ink-faint);margin-top:3px;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .new-entry-btn{
+    width:100%;padding:10px;border-radius:8px;border:1px solid var(--accent);
+    background:transparent;color:var(--accent-soft);font-family:'Inter',sans-serif;
+    font-size:12.5px;cursor:pointer;margin-bottom:16px;letter-spacing:.02em;
+  }
+  .col-editor{background:var(--bg-0);padding:34px 40px;position:relative;overflow:hidden;}
+  .editor-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;position:relative;z-index:1;}
+  .editor-meta .date{font-size:11.5px;color:var(--ink-faint);letter-spacing:.03em;}
+  .mood-pill{font-size:10.5px;padding:4px 11px;border-radius:20px;background:var(--bg-1);color:var(--ink-soft);border:1px solid var(--line);}
+  .entry-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:30px;font-weight:500;border:none;background:transparent;width:100%;
+    color:var(--ink);margin-bottom:16px;position:relative;z-index:1;
+  }
+  .entry-title::placeholder{color:var(--ink-faint);}
+  .entry-body{
+    font-family:'Cormorant Garamond', serif;
+    font-size:19px;line-height:1.85;color:var(--ink);
+    border:none;background:transparent;width:100%;resize:none;min-height:320px;
+    position:relative;z-index:1;
+  }
+  .entry-body::placeholder{color:var(--ink-faint);}
+  .editor-actions{
+    display:flex;justify-content:flex-end;gap:8px;margin-top:20px;
+    border-top:1px solid var(--line);padding-top:18px;position:relative;z-index:1;
+  }
+  .btn{
+    font-family:'Inter',sans-serif;font-size:12px;padding:9px 17px;border-radius:7px;
+    cursor:pointer;border:1px solid var(--line-strong);background:transparent;color:var(--ink);
+  }
+  .btn.primary{background:var(--accent);color:#1A0F14;border-color:var(--accent);font-weight:500;}
+  .col-quotes{
+    background:var(--bg-0);border-left:1px solid var(--line);
+    padding:22px 20px;display:flex;flex-direction:column;position:relative;overflow:hidden;
+  }
+  .quotes-label{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:18px;position:relative;z-index:1;}
+  .quote-card{
+    flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1;
+  }
+  .quote-text{
+    font-family:'Cormorant Garamond', serif;
+    font-size:20px;line-height:1.65;font-style:italic;color:var(--ink);margin:0 0 16px;
+  }
+  .quote-author{font-size:12px;color:var(--ink-soft);letter-spacing:.02em;}
+  .quote-actions{display:flex;justify-content:space-between;align-items:center;margin-top:22px;}
+  .icon-btn{
+    border:1px solid var(--line-strong);background:transparent;width:32px;height:32px;
+    border-radius:50%;cursor:pointer;font-size:14px;color:var(--accent-soft);
+  }
+  .next-btn{font-family:'Inter',sans-serif;font-size:11.5px;border:none;background:transparent;color:var(--ink-soft);cursor:pointer;letter-spacing:.02em;}
+  .caption{max-width:1000px;margin:10px auto 0;font-size:12px;color:var(--ink-faint);text-align:center;}
+
+  .mobile-shell{
+    max-width:340px;margin:0 auto;
+    background:var(--bg-0);border:1px solid var(--line-strong);
+    border-radius:28px;overflow:hidden;padding:10px;
+    box-shadow:0 40px 80px -30px rgba(0,0,0,0.8);
+  }
+  .mobile-screen{background:var(--bg-0);border-radius:20px;overflow:hidden;position:relative;min-height:560px;}
+  .m-topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 10px;position:relative;z-index:1;}
+  .m-body{padding:8px 20px 24px;position:relative;z-index:1;}
+  .m-quote-strip{
+    margin:0 20px 18px;padding:16px;border-radius:12px;
+    background:var(--bg-1);border:1px solid var(--line);position:relative;z-index:1;
+  }
+  .m-quote-strip .quote-text{font-size:15px;margin-bottom:8px;}
+  .m-nav{
+    display:flex;justify-content:space-around;align-items:center;
+    padding:14px 0;border-top:1px solid var(--line);position:relative;z-index:1;
+  }
+  .m-nav-item{font-size:10px;color:var(--ink-faint);text-align:center;}
+  .m-nav-item.active{color:var(--accent-soft);}
+  .m-nav-dot{width:5px;height:5px;border-radius:50%;background:currentColor;margin:0 auto 4px;}
+</style>
+</head>
+<body>
+
+<div class="frame-label">Screen 1 — journal view, desktop</div>
+<div class="device">
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-mark"></div>
+      <span class="brand-name serif">Silo</span>
+    </div>
+    <div class="tabs">
+      <button class="tab-btn active">Journal</button>
+      <button class="tab-btn">Favorites</button>
+    </div>
+  </div>
+  <div class="layout">
+    <div class="col-list">
+      <button class="new-entry-btn">+ New entry</button>
+      <input class="search" placeholder="Search entries…">
+      <div class="entry-item active">
+        <div class="d">Aug 25</div>
+        <div class="t">Quiet Sunday</div>
+        <div class="p">Didn't leave the flat much today but</div>
+      </div>
+      <div class="entry-item">
+        <div class="d">Aug 22</div>
+        <div class="t">Rough one</div>
+        <div class="p">Work was heavy and I couldn't shake</div>
+      </div>
+      <div class="entry-item">
+        <div class="d">Aug 20</div>
+        <div class="t">Small win</div>
+        <div class="p">Finally finished the thing I'd been</div>
+      </div>
+      <div class="entry-item">
+        <div class="d">Aug 18</div>
+        <div class="t">Untitled</div>
+        <div class="p">Not sure what to call today</div>
+      </div>
+    </div>
+    <div class="col-editor">
+      <div class="rain-texture"></div>
+      <div class="editor-meta">
+        <span class="date">Tuesday, August 25 · 9:41 PM</span>
+        <span class="mood-pill">Mood: okay</span>
+      </div>
+      <div class="entry-title serif">Quiet Sunday</div>
+      <div class="entry-body">Didn't leave the flat much today, but it felt okay rather than lonely for once. Made coffee slowly, read for a bit. There's something about writing this down that makes the day feel less like it just evaporated.</div>
+      <div class="editor-actions">
+        <button class="btn">Delete</button>
+        <button class="btn primary">Save changes</button>
+      </div>
+    </div>
+    <div class="col-quotes">
+      <div class="rain-texture"></div>
+      <div class="quotes-label">Today's quote</div>
+      <div class="quote-card">
+        <p class="quote-text">Some nights are just quiet, not empty. There's a difference, if you sit with it long enough.</p>
+        <p class="quote-author">— original line, placeholder</p>
+        <div class="quote-actions">
+          <button class="icon-btn">♡</button>
+          <button class="next-btn">Next quote →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="caption">Dark, glass-like panels; italic serif for anything reflective — the quote and the entry body. UI chrome stays quiet sans-serif so the writing is what draws the eye.</p>
+
+<div class="frame-label">Screen 2 — new entry, quotes panel collapsed</div>
+<div class="device">
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-mark"></div>
+      <span class="brand-name serif">Silo</span>
+    </div>
+    <div class="tabs">
+      <button class="tab-btn active">Journal</button>
+      <button class="tab-btn">Favorites</button>
+    </div>
+  </div>
+  <div class="layout no-quotes">
+    <div class="col-list">
+      <button class="new-entry-btn">+ New entry</button>
+      <input class="search" placeholder="Search entries…">
+      <div class="entry-item">
+        <div class="d">Aug 22</div>
+        <div class="t">Rough one</div>
+        <div class="p">Work was heavy and I couldn't shake</div>
+      </div>
+      <div class="entry-item">
+        <div class="d">Aug 20</div>
+        <div class="t">Small win</div>
+        <div class="p">Finally finished the thing I'd been</div>
+      </div>
+    </div>
+    <div class="col-editor">
+      <div class="rain-texture"></div>
+      <div class="editor-meta">
+        <span class="date">New entry · draft</span>
+        <span class="mood-pill">Set mood ▾</span>
+      </div>
+      <input class="entry-title serif" placeholder="Give it a title (optional)">
+      <textarea class="entry-body" placeholder="Start writing…"></textarea>
+      <div class="editor-actions">
+        <button class="btn">Discard</button>
+        <button class="btn primary">Save entry</button>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="caption">More writing room when the panel's off — it's there when you want company, not in the way when you don't.</p>
+
+<div class="frame-label">Screen 3 — mobile (Android-ready layout)</div>
+<div class="mobile-shell">
+  <div class="mobile-screen">
+    <div class="rain-texture"></div>
+    <div class="m-topbar">
+      <div class="brand"><div class="brand-mark"></div><span class="brand-name serif" style="font-size:15px;">Silo</span></div>
+      <span style="font-size:18px;color:var(--ink-faint);">+</span>
+    </div>
+    <div class="m-quote-strip">
+      <p class="quote-text" style="font-style:italic;">Some nights are just quiet, not empty.</p>
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span class="quote-author" style="font-size:11px;">— today's quote</span>
+        <button class="next-btn" style="font-size:10.5px;">Next →</button>
+      </div>
+    </div>
+    <div class="m-body">
+      <div class="entry-item active" style="padding:14px 12px;">
+        <div class="d">Aug 25</div>
+        <div class="t" style="font-size:15px;">Quiet Sunday</div>
+        <div class="p">Didn't leave the flat much today but</div>
+      </div>
+      <div class="entry-item" style="padding:14px 12px;">
+        <div class="d">Aug 22</div>
+        <div class="t" style="font-size:15px;">Rough one</div>
+        <div class="p">Work was heavy and I couldn't shake</div>
+      </div>
+      <div class="entry-item" style="padding:14px 12px;">
+        <div class="d">Aug 20</div>
+        <div class="t" style="font-size:15px;">Small win</div>
+        <div class="p">Finally finished the thing I'd been</div>
+      </div>
+    </div>
+    <div class="m-nav">
+      <div class="m-nav-item active"><div class="m-nav-dot"></div>Journal</div>
+      <div class="m-nav-item"><div class="m-nav-dot"></div>Write</div>
+      <div class="m-nav-item"><div class="m-nav-dot"></div>Favorites</div>
+    </div>
+  </div>
+</div>
+<p class="caption">On mobile, the quotes panel folds into a strip above the list instead of a side column — same components, stacked layout. This is the shape a future React Native / Android port would inherit.</p>
+
+</body>
+</html>
